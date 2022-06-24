@@ -44,6 +44,7 @@ public class NotesListAdapter extends RecyclerView.Adapter <NotesViewHolder>{
      holder.textView_title.setSelected(true);
      holder.textView_notes.setText(list.get(position).getNotes());
 
+
      if (list.get(position).isPinned()){
          holder.imageView_pin.setImageResource(R.drawable.pin_icon);
      } else
@@ -56,6 +57,7 @@ public class NotesListAdapter extends RecyclerView.Adapter <NotesViewHolder>{
      holder.notes_conteiner.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
+
              listener.onClick(list.get(holder.getAdapterPosition()));
          }
      });
@@ -76,7 +78,7 @@ public class NotesListAdapter extends RecyclerView.Adapter <NotesViewHolder>{
         colorCode.add(R.color.color5);
         Random random = new Random();
         int random_color = random.nextInt(colorCode.size());
-        return random_color;
+        return colorCode.get(random_color);
     }
 
     @Override

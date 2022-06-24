@@ -5,8 +5,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-@Entity (tableName = "notes")
+@Entity(tableName = "notes")
 public class Notes implements Serializable {
+
     @PrimaryKey(autoGenerate = true)
     int ID = 0;
 
@@ -54,9 +55,7 @@ public class Notes implements Serializable {
         this.date = date;
     }
 
-    public boolean isPinned() {
-        return pinned;
-    }
+    public boolean isPinned() {return pinned;}
 
     public void setPinned(boolean pinned) {
         this.pinned = pinned;

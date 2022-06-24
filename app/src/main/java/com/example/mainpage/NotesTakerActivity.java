@@ -32,9 +32,9 @@ public class NotesTakerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String title = editText_title.getText().toString();
-                String discription = editText_notes.getText().toString();
+                String description = editText_notes.getText().toString();
 
-                if(discription.isEmpty()){
+                if(description.isEmpty()){
                     Toast.makeText(NotesTakerActivity.this,"Пожалуйста напишите что-нибудь",Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -42,7 +42,7 @@ public class NotesTakerActivity extends AppCompatActivity {
                 Date date = new Date();
                 notes = new Notes();
                 notes.setTitle(title);
-                notes.setNotes(discription);
+                notes.setNotes(description);
                 notes.setDate(formatter.format(date));
 
                 Intent intent= new Intent();

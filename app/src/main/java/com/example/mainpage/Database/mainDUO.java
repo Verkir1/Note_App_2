@@ -2,7 +2,10 @@ package com.example.mainpage.Database;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
+import android.provider.ContactsContract;
+
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -11,7 +14,7 @@ import com.example.mainpage.Models.Notes;
 import java.util.List;
 
 @Dao
-public interface mainDuo {
+public interface mainDUO {
     @Insert (onConflict = REPLACE)
     void insert(Notes notes);
 
@@ -21,4 +24,8 @@ public interface mainDuo {
     @Query("UPDATE notes SET title = :title, notes = :notes WHERE ID = :id")
     void update (int id, String title, String notes );
 
+    @Delete
+    void delete (Notes notes);
+
 }
+
