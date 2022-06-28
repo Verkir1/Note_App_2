@@ -12,7 +12,7 @@ import com.example.mainpage.Models.Notes;
 public abstract class RoomDB extends RoomDatabase {
 
     private static RoomDB database;
-    private static String DATABASE_NAME = "NoteApp";
+    private static String DATABASE_NAME = "заметки";
 
     public synchronized static RoomDB getInstance(Context context) {
         if (database == null) {

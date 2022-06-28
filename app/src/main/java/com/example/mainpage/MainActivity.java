@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab_add;
     NotesListAdapter notesListAdapter;
     RoomDB database;
-    List <Notes> notes= new ArrayList<>();
+    List<Notes> notes= new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,37 +46,51 @@ public class MainActivity extends AppCompatActivity {
         fab_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,NotesTakerActivity.class);
-                startActivityForResult(intent, 101);
+                Intent intent =new Intent(MainActivity.this,NotesTakerActivity.class);
+                startActivityForResult(intent,101);
             }
         });
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 101) {
+
+        if (requestCode == 101){
             if (resultCode == Activity.RESULT_OK){
-                Notes new_notes = (Notes) data.getSerializableExtra("note");
+                Notes new_notes= (Notes) data.getSerializableExtra("note");
                 database.mainDUO().insert(new_notes);
+                notes.clear();
+                notes.addAll(database.mainDUO().getAll());
+                notesListAdapter.notifyDataSetChanged();
+
+            }
+        }
+        if (requestCode == 102){
+            if (resultCode == Activity.RESULT_OK){
+                Notes new_notes= (Notes) data.getSerializableExtra("note");
+                database.mainDUO().update(new_notes.getID(), new_notes.getTitle(), new_notes.getNotes());
                 notes.clear();
                 notes.addAll(database.mainDUO().getAll());
                 notesListAdapter.notifyDataSetChanged();
             }
         }
-
     }
+
 
     private void updateRecycle(List<Notes> notes) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
-        notesListAdapter = new NotesListAdapter(MainActivity.this,notes,notesClickListener);
+        notesListAdapter =new NotesListAdapter(MainActivity.this,notes,notesClickListener);
         recyclerView.setAdapter(notesListAdapter);
     }
-    private NotesClickListener notesClickListener = new NotesClickListener() {
+    private NotesClickListener notesClickListener =new NotesClickListener() {
         @Override
         public void onClick(Notes notes) {
-
+            Intent intent = new Intent(MainActivity.this,NotesTakerActivity.class);
+            intent.putExtra("old_note", notes);
+            startActivityForResult(intent,102);
         }
 
         @Override
